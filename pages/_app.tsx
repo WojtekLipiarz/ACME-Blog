@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '@styles/GlobalStyles';
 import { darkTheme, lightTheme } from '@styles/theme';
-// common
-import { ErrorBoundary } from '@components/common/ErrorBoundary';
 // context
 import { FavoritesProvider } from '@context/FavoritesContext';
+// common
+import { ErrorBoundary } from '@components/common/ErrorBoundary';
+import Header from '@components/layout/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ErrorBoundary>
         <FavoritesProvider>
           <GlobalStyles />
+          <Header />
 
           <button
             type="button"
