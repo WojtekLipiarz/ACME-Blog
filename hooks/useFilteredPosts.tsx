@@ -1,3 +1,4 @@
+// hooks/useFilteredPosts.ts
 import { useState, useMemo, useEffect } from 'react';
 import { Post } from '@models/post';
 
@@ -6,6 +7,7 @@ export type SortOrder = 'newest' | 'oldest';
 interface UseFilteredPostsOptions {
   posts: Post[];
   postsPerPage?: number;
+  favoriteIds: number[];
 }
 
 export interface UseFilteredPostsReturn {
@@ -15,8 +17,10 @@ export interface UseFilteredPostsReturn {
   totalPages: number;
   selectedCategory: string;
   sortOrder: SortOrder;
+  showFavorites: boolean;
   setSelectedCategory: (category: string) => void;
   setSortOrder: (order: SortOrder) => void;
+  setShowFavorites: (show: boolean) => void;
   goToNextPage: () => void;
   goToPrevPage: () => void;
   setCurrentPage: (page: number) => void;
@@ -25,29 +29,35 @@ export interface UseFilteredPostsReturn {
 export function useFilteredPosts({
   posts,
   postsPerPage = 12,
+  favoriteIds,
 }: UseFilteredPostsOptions): UseFilteredPostsReturn {
   // Local state for filtering, sorting, and pagination
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest');
+  const [showFavorites, setShowFavorites] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  // Reset pagination when filter or sort order changes
+  // Reset pagination when filter, sort order, or favorites filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedCategory, sortOrder]);
+  }, [selectedCategory, sortOrder, showFavorites]);
 
-  // Filter and sort posts deterministically
+  // Apply filtering based on category and favorites flag
   const filteredPosts = useMemo(() => {
-    const filtered = selectedCategory
-      ? posts.filter((post) => post.category === selectedCategory)
-      : posts;
-    // Return a new sorted array to avoid mutating the original posts array
+    let filtered = posts;
+    if (selectedCategory) {
+      filtered = filtered.filter((post) => post.category === selectedCategory);
+    }
+    if (showFavorites) {
+      filtered = filtered.filter((post) => favoriteIds.includes(post.id));
+    }
+    // Return a new sorted array to avoid in-place mutation
     return [...filtered].sort((a, b) => {
       const dateA = new Date(a.createdAt).getTime();
       const dateB = new Date(b.createdAt).getTime();
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
-  }, [posts, selectedCategory, sortOrder]);
+  }, [posts, favoriteIds, selectedCategory, sortOrder, showFavorites]);
 
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
@@ -75,8 +85,10 @@ export function useFilteredPosts({
     totalPages,
     selectedCategory,
     sortOrder,
+    showFavorites,
     setSelectedCategory,
     setSortOrder,
+    setShowFavorites,
     goToNextPage,
     goToPrevPage,
     setCurrentPage,

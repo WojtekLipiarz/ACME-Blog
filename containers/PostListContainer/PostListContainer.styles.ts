@@ -22,6 +22,14 @@ export const SortSelect = styled.select`
   padding: 4px 8px;
 `;
 
+export const FavoritesToggleLabel = styled.label`
+  margin-left: 8px;
+  font-size: 14px;
+  input {
+    margin-right: 4px;
+  }
+`;
+
 export const PostsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

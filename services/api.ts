@@ -1,3 +1,4 @@
+// services/api.ts
 import axios from 'axios';
 import { Post } from '@models/post';
 import { CATEGORIES } from '@models/category';
@@ -8,26 +9,37 @@ export const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-export async function fetchPosts(): Promise<Post[]> {
-  const response = await api.get('/posts');
-  const data: Post[] = response.data;
-
+/**
+ * Helper function that enriches a post with a deterministic category and createdAt date.
+ */
+function enrichPost(original: Post): Post {
+  const assignedCategory = CATEGORIES[original.id % CATEGORIES.length];
   const baseDate = new Date('2024-01-01T00:00:00.000Z');
   const oneDay = 24 * 60 * 60 * 1000;
+  const createdAt = new Date(
+    baseDate.getTime() + original.id * oneDay
+  ).toISOString();
 
-  const enrichedData = data.map((post) => {
-    // Deterministic category assignment based on post.id
-    const assignedCategory = CATEGORIES[post.id % CATEGORIES.length];
-    // Deterministic date: base date plus post.id days
-    const createdAt = new Date(
-      baseDate.getTime() + post.id * oneDay
-    ).toISOString();
-    return {
-      ...post,
-      category: assignedCategory,
-      createdAt,
-    };
-  });
+  return {
+    ...original,
+    category: assignedCategory,
+    createdAt,
+  };
+}
 
-  return enrichedData;
+/**
+ * Fetch all posts and enrich them.
+ */
+export async function fetchPosts(): Promise<Post[]> {
+  const response = await api.get<Post[]>('/posts');
+  const data = response.data;
+  return data.map(enrichPost);
+}
+
+/**
+ * Fetch a single post by ID and enrich it.
+ */
+export async function fetchPost(id: number): Promise<Post> {
+  const response = await api.get<Post>(`/posts/${id}`);
+  return enrichPost(response.data);
 }
