@@ -32,10 +32,19 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          {/* Favicon and related meta tags */}
+          {/* prettier-ignore */}
+          <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+          {/* prettier-ignore */}
+          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+          <link rel="manifest" href="/site.webmanifest" />
+
+          {/* Existing meta tags */}
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-          <title>ACME Blog</title>
+          <title>ACME</title>
           <meta
             name="description"
             content="A professional blog built with Next.js 15, React 19, and styled-components."
