@@ -1,13 +1,17 @@
-import Link from "next/link";
-import Layout from "../components/Layout";
+import React from 'react';
+// context
+import { PostsProvider } from '@context/PostsContext';
+// containers
+import { PostListContainer } from '@containers/PostListContainer/PostListContainer';
+// components
+import { ErrorBoundary } from '@components/common/ErrorBoundary';
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
-);
-
-export default IndexPage;
+export default function HomePage() {
+  return (
+    <ErrorBoundary>
+      <PostsProvider>
+        <PostListContainer />
+      </PostsProvider>
+    </ErrorBoundary>
+  );
+}
