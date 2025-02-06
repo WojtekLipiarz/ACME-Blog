@@ -34,12 +34,12 @@ export default class MyDocument extends Document {
         <Head>
           {/* Favicon and related meta tags */}
           {/* prettier-ignore */}
-          <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+          <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+          <link rel="shortcut icon" href="/favicon/favicon.ico" />
           {/* prettier-ignore */}
-          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-          <link rel="manifest" href="/site.webmanifest" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+          <link rel="manifest" href="/favicon/site.webmanifest" />
 
           {/* Existing meta tags */}
           <meta charSet="UTF-8" />
