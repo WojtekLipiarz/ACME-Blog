@@ -12,11 +12,6 @@ export const FilterBar = styled.div`
   align-items: center;
 `;
 
-export const CategorySelect = styled.select`
-  margin-left: 8px;
-  padding: 4px 8px;
-`;
-
 export const SortSelect = styled.select`
   margin-left: 8px;
   padding: 4px 8px;

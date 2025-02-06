@@ -1,0 +1,6 @@
+export const SWIPER_BREAKPOINTS = {
+    TWO_ITEMS: 500,
+    THREE_ITEMS: 800,
+    FOUR_ITEMS: 1000,
+  };
+  

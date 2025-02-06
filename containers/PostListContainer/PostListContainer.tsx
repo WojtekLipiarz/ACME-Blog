@@ -1,16 +1,13 @@
-// containers/PostListContainer/PostListContainer.tsx
 'use client';
 
 import React from 'react';
 import Link from 'next/link';
-import { usePosts } from '@context/PostsContext';
 import { Post } from '@models/post';
 import { useFavorites } from '@context/FavoritesContext';
-import { useFilteredPosts } from '@hooks/useFilteredPosts';
+import { SortOrder } from '@hooks/useFilteredPosts';
 import {
   Container,
   FilterBar,
-  CategorySelect,
   SortSelect,
   FavoritesToggleLabel,
   PostsWrapper,
@@ -18,33 +15,31 @@ import {
   PageButton,
   PostCard,
 } from './PostListContainer.styles';
-import { CATEGORIES } from '@models/category';
 
-export const PostListContainer: React.FC = () => {
-  const { posts, loading, error } = usePosts();
+interface PostListContainerProps {
+  currentPagePosts: Post[];
+  currentPage: number;
+  totalPages: number;
+  sortOrder: SortOrder;
+  showFavorites: boolean;
+  setSortOrder: (order: SortOrder) => void;
+  setShowFavorites: (show: boolean) => void;
+  goToNextPage: () => void;
+  goToPrevPage: () => void;
+}
+
+export const PostListContainer: React.FC<PostListContainerProps> = ({
+  currentPagePosts,
+  currentPage,
+  totalPages,
+  sortOrder,
+  showFavorites,
+  setSortOrder,
+  setShowFavorites,
+  goToNextPage,
+  goToPrevPage,
+}) => {
   const { favoriteIds, toggleFavorite } = useFavorites();
-
-  // Use the custom hook to manage filtering, sorting, and pagination.
-  const {
-    currentPagePosts,
-    currentPage,
-    totalPages,
-    selectedCategory,
-    sortOrder,
-    showFavorites,
-    setSelectedCategory,
-    setSortOrder,
-    setShowFavorites,
-    goToNextPage,
-    goToPrevPage,
-  } = useFilteredPosts({ posts, favoriteIds, postsPerPage: 12 });
-
-  if (loading) {
-    return <Container>Loading posts...</Container>;
-  }
-  if (error) {
-    return <Container>{error}</Container>;
-  }
 
   return (
     <Container>
@@ -52,21 +47,6 @@ export const PostListContainer: React.FC = () => {
 
       {/* Filter and Sort Bar */}
       <FilterBar>
-        <div>
-          <label htmlFor="categorySelect">Category: </label>
-          <CategorySelect
-            id="categorySelect"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="">All</option>
-            {CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </CategorySelect>
-        </div>
         <div style={{ marginLeft: '16px' }}>
           <label htmlFor="sortSelect">Sort by: </label>
           <SortSelect

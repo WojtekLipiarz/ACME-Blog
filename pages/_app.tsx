@@ -12,7 +12,6 @@ import Header from '@components/layout/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
-
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
   return (
@@ -20,15 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ErrorBoundary>
         <FavoritesProvider>
           <GlobalStyles />
-          <Header />
-
-          <button
-            type="button"
-            onClick={toggleDarkMode}
-            style={{ position: 'absolute', top: 16, right: 16 }}
-          >
-            Toggle Dark Mode
-          </button>
+          <Header toggleDarkMode={toggleDarkMode} />
 
           <Component {...pageProps} />
         </FavoritesProvider>

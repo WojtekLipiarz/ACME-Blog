@@ -1,10 +1,13 @@
 import React from 'react';
-
 import Link from 'next/link';
 // styles
 import { HeaderContainer, StyledLogo } from './Header.styles';
 
-export default function Header() {
+interface HeaderProps {
+  toggleDarkMode: () => void;
+}
+
+export default function Header({ toggleDarkMode }: HeaderProps) {
   return (
     <HeaderContainer>
       <Link href="/" legacyBehavior>
@@ -19,6 +22,14 @@ export default function Header() {
           />
         </picture>
       </Link>
+
+      <button
+        type="button"
+        onClick={toggleDarkMode}
+        style={{ position: 'absolute', top: 16, right: 16 }}
+      >
+        Toggle Dark Mode
+      </button>
     </HeaderContainer>
   );
 }
