@@ -1,67 +1,69 @@
 export const lightTheme = {
   colors: {
-    primary: '#6C63FF',
-    secondary: '#FF6584',
+    category1: 'rgba(68, 78, 141, 1)',
+    category2: 'rgba(255, 191, 66, 1)',
+    category3: 'rgba(217, 79, 79, 1)',
+    category4: 'rgba(130, 228, 154, 1)',
 
-    background: '#FFFFFF',
-    text: '#333333',
-    buttonText: '#FFFFFF',
-
+    black: 'rgba(0, 0, 0, 1)',
+    white: 'rgba(255, 255, 255, 1)',
     danger: '#FF0000',
-    errorText: '#FF0000',
-    backgroundErrorFallback: '#FFEDEE',
+    featured: 'rgba(142, 47, 63, 1)',
 
-    gray0: 'rgba(0, 0, 0, 1)',
-    grey50: 'rgba(250, 250, 250, 1)',
-    grey100: 'rgba(245, 245, 245, 1)',
-    grey200: 'rgba(238, 238, 238, 1)',
-    grey300: 'rgba(224, 224, 224, 1)',
-    grey400: 'rgba(189, 189, 189, 1)',
-    grey500: 'rgba(158, 158, 158, 1)',
-    grey600: 'rgba(117, 117, 117, 1)',
-    grey700: 'rgba(97, 97, 97, 1)',
-    grey800: 'rgba(66, 66, 66, 1)',
-    grey900: 'rgba(33, 33, 33, 1)',
+    background1: 'rgba(255, 255, 255, 1)',
+    background2: 'rgba(244, 244, 244, 1)',
+
+    accent1: 'rgba(63, 58, 84, 1)',
+    accent2: 'rgba(54, 59, 92, 1)',
+    accent3: 'rgba(30, 44, 59, 1)',
+    accent4: 'rgba(65, 64, 66, 1)',
+    accent5: 'rgba(31, 26, 23, 1)',
+    accent6: 'rgba(30, 30, 30, 1)',
   },
-  spacing: {
-    xs: '4px',
-    sm: '8px',
-    md: '16px',
-    lg: '24px',
-    xl: '32px',
+
+  gap: '56px',
+  radius: {
+    lg: '60px',
+  },
+
+  maxWidth: '1632px',
+  padding: {
+    xs: '29px',
+    lg: '144px',
   },
 };
 
 export const darkTheme = {
   colors: {
-    primary: '#5F5AE2',
-    secondary: '#FF6584',
+    category1: 'rgba(68, 78, 141, 1)',
+    category2: 'rgba(255, 191, 66, 1)',
+    category3: 'rgba(217, 79, 79, 1)',
+    category4: 'rgba(130, 228, 154, 1)',
 
-    background: '#1C1C1E',
-    text: '#FFFFFF',
-    buttonText: '#FFFFFF',
+    black: 'rgba(0, 0, 0, 1)',
+    white: 'rgba(255, 255, 255, 1)',
+    danger: '#FF0000',
+    featured: 'rgba(142, 47, 63, 1)',
 
-    danger: '#FF4444',
-    errorText: '#FF6666',
-    backgroundErrorFallback: '#2A2A2C',
+    background1: 'rgba(255, 255, 255, 1)',
+    background2: 'rgba(244, 244, 244, 1)',
 
-    grey0: 'rgba(255, 255, 255, 1)',
-    grey50: 'rgba(33, 33, 33, 1)',
-    grey100: 'rgba(66, 66, 66, 1)',
-    grey200: 'rgba(97, 97, 97, 1)',
-    grey300: 'rgba(117, 117, 117, 1)',
-    grey400: 'rgba(158, 158, 158, 1)',
-    grey500: 'rgba(189, 189, 189, 1)',
-    grey600: 'rgba(224, 224, 224, 1)',
-    grey700: 'rgba(238, 238, 238, 1)',
-    grey800: 'rgba(245, 245, 245, 1)',
-    grey900: 'rgba(250, 250, 250, 1)',
+    accent1: 'rgba(63, 58, 84, 1)',
+    accent2: 'rgba(54, 59, 92, 1)',
+    accent3: 'rgba(30, 44, 59, 1)',
+    accent4: 'rgba(65, 64, 66, 1)',
+    accent5: 'rgba(31, 26, 23, 1)',
+    accent6: 'rgba(30, 30, 30, 1)',
   },
-  spacing: {
-    xs: '4px',
-    sm: '8px',
-    md: '16px',
-    lg: '24px',
-    xl: '32px',
+
+  gap: '56px',
+  radius: {
+    lg: '60px',
+  },
+
+  maxWidth: '1632px',
+  padding: {
+    xs: '29px',
+    lg: '144px',
   },
 };

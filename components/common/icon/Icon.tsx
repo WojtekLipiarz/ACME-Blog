@@ -26,7 +26,7 @@ interface IconProps {
  */
 export const Icon: React.FC<IconProps> = ({
   iconName,
-  color = 'gray0',
+  color = 'black',
   size = 24,
 }) => {
   return <IconWrapper $iconName={iconName} $color={color} $size={size} />;

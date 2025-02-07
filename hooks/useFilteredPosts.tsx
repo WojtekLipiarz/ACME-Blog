@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
+// models
 import { Post } from '@models/post';
+import { Category } from '@models/category';
 
 export type SortOrder = 'newest' | 'oldest';
 
@@ -14,10 +16,10 @@ export interface UseFilteredPostsReturn {
   currentPagePosts: Post[];
   currentPage: number;
   totalPages: number;
-  selectedCategory: string | null;
+  selectedCategory: Category | null;
   sortOrder: SortOrder;
   showFavorites: boolean;
-  setActiveCategory: (category: string) => void;
+  setActiveCategory: (category: Category) => void;
   setSortOrder: (order: SortOrder) => void;
   setShowFavorites: (show: boolean) => void;
   goToNextPage: () => void;
@@ -31,7 +33,7 @@ export function useFilteredPosts({
   favoriteIds,
 }: UseFilteredPostsOptions): UseFilteredPostsReturn {
   // Local state for filtering, sorting, and pagination
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null); // prettier-ignore
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest');
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -78,7 +80,7 @@ export function useFilteredPosts({
   };
 
   const setActiveCategory = useCallback(
-    (category: string) => {
+    (category: Category) => {
       if (selectedCategory === category) {
         setSelectedCategory(null);
       } else {

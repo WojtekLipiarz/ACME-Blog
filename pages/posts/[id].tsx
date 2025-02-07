@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Post } from '@models/post';
 import { fetchPosts, fetchPost } from '@services/api';
-import FavoriteToggle from '@components/common/FavoriteToggle';
+import FavoriteToggle from '@components/common/favorite/FavoriteToggle';
 import SEO from '@components/common/SEO';
 
 interface PostPageProps {

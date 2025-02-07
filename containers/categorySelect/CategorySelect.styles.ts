@@ -4,8 +4,6 @@ import { SWIPER_BREAKPOINTS } from 'utils/constants';
 const swiperPaddingTop = 1.75;
 
 export const CategorySelectWrapper = styled.div`
-  margin: 0 1rem;
-
   .swiper {
     width: 100%;
 
@@ -23,11 +21,16 @@ export const CategorySelectWrapper = styled.div`
     height: fit-content;
   }
   .swiper-pagination-bullet {
-    background-color: ${({ theme }) => theme.colors.grey600};
-    opacity: 0.6;
+    opacity: 1;
+    width: 1rem;
+    height: 1rem;
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: ${({ theme }) => theme.colors.accent1};
   }
   .swiper-pagination-bullet-active {
-    background-color: ${({ theme }) => theme.colors.grey700};
+    background-color: ${({ theme }) => theme.colors.accent2};
     opacity: 1;
   }
 `;

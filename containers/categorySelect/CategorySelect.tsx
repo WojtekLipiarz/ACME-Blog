@@ -1,30 +1,35 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
+// utils
+import { SWIPER_BREAKPOINTS } from 'utils/constants';
+// models
+import { CATEGORIES, Category } from '@models/category';
+// common
+import { CardCategory } from '@components/common/cards/CardCategory';
+import { Icon } from '@components/common/icon/Icon';
+import { Title } from '@components/common/text/Title';
+// styles
 import {
   CategorySelectWrapper,
   SliderControls,
   ArrowWrapper,
   CategorySelectItem,
 } from './CategorySelect.styles';
-
+// swiper
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import { SWIPER_BREAKPOINTS } from 'utils/constants';
-import { CATEGORIES } from '@models/category';
-import { CardCategory } from '@components/common/cards/CardCategory';
-import { Icon } from '@components/common/icon/Icon';
-
 interface CategorySelectProps {
-  selectedCategory?: string | null;
-  onChange: (category: string) => void;
+  selectedCategory?: Category | null;
+  onChange: (category: Category) => void;
 }
 
-const iconColor = 'grey500';
-const iconSize = 32;
+const iconColor = 'black';
+const iconSize = 26;
+
 export const CategorySelect: React.FC<CategorySelectProps> = ({
   selectedCategory,
   onChange,
@@ -41,17 +46,15 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
 
   return (
     <CategorySelectWrapper>
-      <h2>Kategorie</h2>
+      <Title variant="h2" text="Kategorie" />
 
       <SliderControls>
-        {/* Lewy przycisk nawigacji */}
         <ArrowWrapper>
           <button onClick={handlePrevious}>
             <Icon iconName="chevron_left" color={iconColor} size={iconSize} />
           </button>
         </ArrowWrapper>
 
-        {/* Główny slider */}
         <Swiper
           onSwiper={setSwiperRef}
           modules={[Pagination]}
@@ -65,18 +68,17 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
           }}
         >
           {CATEGORIES.map((cat) => (
-            <SwiperSlide key={cat}>
-              <CategorySelectItem onClick={() => onChange(cat)}>
+            <SwiperSlide key={cat.id}>
+              <CategorySelectItem onClick={() => onChange(cat.id)}>
                 <CardCategory
-                  categoryKey={cat}
-                  isActive={cat === selectedCategory}
+                  data={cat}
+                  isActive={cat.id === selectedCategory}
                 />
               </CategorySelectItem>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Prawy przycisk nawigacji */}
         <ArrowWrapper>
           <button onClick={handleNext}>
             <Icon iconName="chevron_right" color={iconColor} size={iconSize} />

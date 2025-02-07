@@ -12,6 +12,7 @@ import { PostListContainer } from '@containers/postListContainer/PostListContain
 import { ErrorBoundary } from '@components/common/ErrorBoundary';
 import SEO from '@components/common/SEO';
 import { CategorySelect } from '@containers/categorySelect/CategorySelect';
+import { Title } from '@components/common/text/Title';
 
 function HomePageContent() {
   const { posts, loading, error } = usePosts();
@@ -47,6 +48,8 @@ function HomePageContent() {
         url="https://yourdomain.com"
         image="https://yourdomain.com/home-og-image.jpg"
       />
+
+      <Title variant="h1" text="Blog Edukacyjny" />
 
       <CategorySelect
         selectedCategory={selectedCategory}
