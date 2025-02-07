@@ -19,6 +19,7 @@ export const lightTheme = {
     accent4: 'rgba(65, 64, 66, 1)',
     accent5: 'rgba(31, 26, 23, 1)',
     accent6: 'rgba(30, 30, 30, 1)',
+    accent7: 'rgba(198, 198, 198, 1)',
   },
 
   gap: '56px',
@@ -54,6 +55,7 @@ export const darkTheme = {
     accent4: 'rgba(65, 64, 66, 1)',
     accent5: 'rgba(31, 26, 23, 1)',
     accent6: 'rgba(30, 30, 30, 1)',
+    accent7: 'rgba(198, 198, 198, 1)',
   },
 
   gap: '56px',

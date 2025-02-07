@@ -19,7 +19,7 @@ export interface UseFilteredPostsReturn {
   selectedCategory: Category | null;
   sortOrder: SortOrder;
   showFavorites: boolean;
-  setActiveCategory: (category: Category) => void;
+  setActiveCategory: (category: Category | null) => void;
   setSortOrder: (order: SortOrder) => void;
   setShowFavorites: (show: boolean) => void;
   goToNextPage: () => void;
@@ -80,7 +80,7 @@ export function useFilteredPosts({
   };
 
   const setActiveCategory = useCallback(
-    (category: Category) => {
+    (category: Category | null) => {
       if (selectedCategory === category) {
         setSelectedCategory(null);
       } else {

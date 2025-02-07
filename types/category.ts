@@ -49,3 +49,11 @@ export const CATEGORIES: CategoryItem[] = [
     color: 'accent4',
   },
 ];
+
+export const categoryMap = CATEGORIES.reduce<Record<Category, CategoryItem>>(
+  (map, category) => {
+    map[category.id] = category;
+    return map;
+  },
+  {} as Record<Category, CategoryItem>
+);

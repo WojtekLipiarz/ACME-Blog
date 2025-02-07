@@ -1,112 +1,91 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect, useRef } from 'react';
+// models
 import { Post } from '@models/post';
-import { useFavorites } from '@context/FavoritesContext';
-import { SortOrder } from '@hooks/useFilteredPosts';
+// components
+import { Icon } from '@components/common/icon/Icon';
+import { CardPost } from '@components/common/cards/CardPost';
+// styles
 import {
   Container,
-  FilterBar,
-  SortSelect,
-  FavoritesToggleLabel,
   PostsWrapper,
   PaginationControls,
   PageButton,
-  PostCard,
 } from './PostListContainer.styles';
 
 interface PostListContainerProps {
   currentPagePosts: Post[];
   currentPage: number;
   totalPages: number;
-  sortOrder: SortOrder;
-  showFavorites: boolean;
-  setSortOrder: (order: SortOrder) => void;
-  setShowFavorites: (show: boolean) => void;
   goToNextPage: () => void;
   goToPrevPage: () => void;
 }
+
+const iconColor = 'black';
+const iconColorDisabled = 'accent7';
+const iconSize = 26;
 
 export const PostListContainer: React.FC<PostListContainerProps> = ({
   currentPagePosts,
   currentPage,
   totalPages,
-  sortOrder,
-  showFavorites,
-  setSortOrder,
-  setShowFavorites,
   goToNextPage,
   goToPrevPage,
 }) => {
-  const { favoriteIds, toggleFavorite } = useFavorites();
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const [shouldScroll, setShouldScroll] = useState(false);
+
+  useEffect(() => {
+    if (shouldScroll && bottomRef.current) {
+      bottomRef.current.scrollIntoView();
+      setShouldScroll(false);
+    }
+  }, [currentPagePosts, shouldScroll]);
+
+  const handleNextPage = () => {
+    setShouldScroll(true);
+    goToNextPage();
+  };
+
+  const handlePrevPage = () => {
+    setShouldScroll(true);
+    goToPrevPage();
+  };
 
   return (
     <Container>
-      <h1>Blog Posts</h1>
-
-      {/* Filter and Sort Bar */}
-      <FilterBar>
-        <div style={{ marginLeft: '16px' }}>
-          <label htmlFor="sortSelect">Sort by: </label>
-          <SortSelect
-            id="sortSelect"
-            value={sortOrder}
-            onChange={(e) =>
-              setSortOrder(e.target.value as 'newest' | 'oldest')
-            }
-          >
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-          </SortSelect>
-        </div>
-        <div style={{ marginLeft: '16px' }}>
-          <FavoritesToggleLabel>
-            <input
-              type="checkbox"
-              checked={showFavorites}
-              onChange={(e) => setShowFavorites(e.target.checked)}
-            />
-            Show only Favorites
-          </FavoritesToggleLabel>
-        </div>
-      </FilterBar>
-
-      {/* Posts Grid */}
       <PostsWrapper>
         {currentPagePosts.map((post: Post) => (
-          <PostCard key={post.id}>
-            <h2>{post.title}</h2>
-            <p>Category: {post.category}</p>
-            <p>ID: {post.id}</p>
-            <p>
-              {post.body.substring(0, 100)}...
-              <br />
-              <small>{new Date(post.createdAt).toLocaleDateString()}</small>
-            </p>
-            <button onClick={() => toggleFavorite(post.id)}>
-              {favoriteIds.includes(post.id)
-                ? 'Remove from Favorites'
-                : 'Add to Favorites'}
-            </button>
-            <Link href={`/posts/${post.id}`}>Show more</Link>
-          </PostCard>
+          <CardPost key={post.id} {...post} />
         ))}
+
+        <div ref={bottomRef} />
       </PostsWrapper>
 
       {totalPages > 1 && (
         <PaginationControls>
-          <PageButton onClick={goToPrevPage} disabled={currentPage === 1}>
-            Prev
+          <PageButton onClick={handlePrevPage} disabled={currentPage === 1}>
+            <Icon
+              iconName="chevron_left"
+              color={currentPage === 1 ? iconColorDisabled : iconColor}
+              size={iconSize}
+            />
           </PageButton>
+
           <span>
-            Page {currentPage} of {totalPages}
+            Strona {currentPage} z {totalPages}
           </span>
+
           <PageButton
-            onClick={goToNextPage}
+            onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
-            Next
+            <Icon
+              iconName="chevron_right"
+              color={currentPage === totalPages ? iconColorDisabled : iconColor}
+              size={iconSize}
+            />
           </PageButton>
         </PaginationControls>
       )}

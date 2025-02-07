@@ -24,7 +24,7 @@ import 'swiper/css/pagination';
 
 interface CategorySelectProps {
   selectedCategory?: Category | null;
-  onChange: (category: Category) => void;
+  onChange: (category: Category | null) => void;
 }
 
 const iconColor = 'black';
