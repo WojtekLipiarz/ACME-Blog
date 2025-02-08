@@ -22,7 +22,7 @@ const FavoriteToggle: React.FC<FavoriteToggleProps> = ({ postId }) => {
 
   const getContent = useMemo(() => {
     return {
-      text: isFavorite ? 'dodaj do ulubionych' : 'usuń z ulubionych',
+      text: isFavorite ? 'usuń z ulubionych' : 'dodaj do ulubionych',
       iconName: isFavorite ? 'icon_favorite_active' : 'icon_favorite_inactive',
     };
   }, [favoriteIds, postId]);

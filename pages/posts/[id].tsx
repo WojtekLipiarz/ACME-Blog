@@ -1,5 +1,6 @@
 import React from 'react';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+
 // services
 import { fetchPosts, fetchPost } from '@services/api';
 // models
@@ -11,7 +12,7 @@ import { Icon } from '@components/common/icon/Icon';
 import { Title } from '@components/common/text/Title';
 // style
 import {
-  PostBackLink,
+  PostBackLinkContent,
   PostBody,
   PostContainer,
   PostEntryText,
@@ -36,10 +37,10 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       />
 
       <PostHeader>
-        <PostBackLink href="/">
+        <PostBackLinkContent href="/">
           <Icon iconName="arrow_left" color="black" size={32} />
           <span>Blog Edukacyjny</span>
-        </PostBackLink>
+        </PostBackLinkContent>
 
         <FavoriteToggle postId={post.id} />
       </PostHeader>

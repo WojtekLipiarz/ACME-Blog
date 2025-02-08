@@ -33,17 +33,74 @@ export function useFilteredPosts({
   favoriteIds,
 }: UseFilteredPostsOptions): UseFilteredPostsReturn {
   // Local state for filtering, sorting, and pagination
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null); // prettier-ignore
-  const [sortOrder, setSortOrder] = useState<SortOrder>('newest');
-  const [showFavorites, setShowFavorites] = useState<boolean>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(() => {
+    if (typeof window === 'undefined') return 1;
+    const stored = sessionStorage.getItem('currentPage');
+    return stored ? Number(stored) : 1;
+  });
 
-  // Reset pagination when filter, sort order, or favorites filter changes
+  const [sortOrder, setSortOrder] = useState<SortOrder>(() => {
+    if (typeof window === 'undefined') return 'newest';
+    const stored = sessionStorage.getItem('sortOrder');
+    return stored === 'oldest' ? 'oldest' : 'newest';
+  });
+
+  const [showFavorites, setShowFavorites] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const stored = sessionStorage.getItem('showFavorites');
+    return stored === 'true';
+  });
+
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    () => {
+      if (typeof window === 'undefined') return null;
+      const stored = sessionStorage.getItem('selectedCategory');
+      if (stored) {
+        try {
+          return JSON.parse(stored) as Category;
+        } catch (error) {
+          console.error(
+            'Error parsing selectedCategory from sessionStorage',
+            error
+          );
+          return null;
+        }
+      }
+      return null;
+    }
+  );
+
+  // Update sessionStorage on state change
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('currentPage', String(currentPage));
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('sortOrder', sortOrder);
+    }
+  }, [sortOrder]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('showFavorites', String(showFavorites));
+    }
+  }, [showFavorites]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('selectedCategory', JSON.stringify(selectedCategory)); // prettier-ignore
+    }
+  }, [selectedCategory]);
+
+  // Reset paginacji przy zmianie filtrów lub sortowania
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategory, sortOrder, showFavorites]);
 
-  // Apply filtering based on category and favorites flag
+  // Filtering and sorting posts
   const filteredPosts = useMemo(() => {
     let filtered = posts;
     if (selectedCategory) {

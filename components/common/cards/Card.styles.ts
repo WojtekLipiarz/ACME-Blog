@@ -114,7 +114,7 @@ export const PostCardBody = styled.p`
   overflow: hidden;
 `;
 
-export const PostCardLink = styled(Link)`
+export const MoreWrapper = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 8px;

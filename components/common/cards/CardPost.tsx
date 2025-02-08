@@ -12,9 +12,9 @@ import { Icon } from '@components/common/icon/Icon';
 import {
   CardPostContainer,
   CategoryText,
+  MoreWrapper,
   PostCardBody,
   PostCardDate,
-  PostCardLink,
   PostCardTitle,
 } from './Card.styles';
 
@@ -44,10 +44,10 @@ export const CardPost: React.FC<Post> = ({
 
       <PostCardBody>{body}</PostCardBody>
 
-      <PostCardLink href={`/posts/${id}`}>
+      <MoreWrapper>
         <span>zobacz więcej</span>
         <Icon iconName="arrow_right" color="black" size={12} />
-      </PostCardLink>
+      </MoreWrapper>
     </CardPostContainer>
   );
 };

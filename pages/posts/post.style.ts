@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import Link from 'next/link';
 import Image from 'next/image';
 import { SWIPER_BREAKPOINTS } from 'utils/constants';
+import Link from 'next/link';
 
 export const PostContainer = styled.main`
   max-width: 1200px;
@@ -87,7 +87,7 @@ export const PostImage = styled(Image)`
   border-bottom-right-radius: ${({ theme }) => theme.radius.lg};
 `;
 
-export const PostBackLink = styled(Link)`
+export const PostBackLinkContent = styled(Link)`
   display: inline-flex;
   align-items: center;
   gap: 1.4rem;

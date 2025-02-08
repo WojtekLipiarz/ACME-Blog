@@ -33,7 +33,9 @@ const Select: React.FC<SelectProps> = ({
         onChange={(e) => onChange(e.target.value)}
       >
         {options.map((option) => (
-          <option value={option.id}>{option.value}</option>
+          <option key={option.id} value={option.id}>
+            {option.value}
+          </option>
         ))}
       </SortSelect>
     </SelectContainer>

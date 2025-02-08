@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '@styles/GlobalStyles';
 import { darkTheme, lightTheme } from '@styles/theme';
+// hooks
+import useScrollRestoration from '@hooks/useScrollRestoration';
 // context
 import { FavoritesProvider } from '@context/FavoritesContext';
 // common
@@ -11,6 +13,7 @@ import { ErrorBoundary } from '@components/common/ErrorBoundary';
 import Header from '@components/layout/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useScrollRestoration();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
@@ -20,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <FavoritesProvider>
           <GlobalStyles />
           <Header toggleDarkMode={toggleDarkMode} />
-
           <Component {...pageProps} />
         </FavoritesProvider>
       </ErrorBoundary>

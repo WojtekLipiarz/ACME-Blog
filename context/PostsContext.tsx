@@ -6,7 +6,6 @@ import { fetchPosts } from '@services/api';
 // models
 import { Post } from '@models/post';
 
-// Interface for the context value
 interface PostsContextValue {
   posts: Post[];
   loading: boolean;
@@ -24,24 +23,32 @@ interface PostsProviderProps {
 }
 
 export const PostsProvider: React.FC<PostsProviderProps> = ({ children }) => {
+  // Inicjalizujemy stan jako pustą tablicę
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchPosts();
-        setPosts(data);
-      } catch (err) {
-        console.error('Error fetching posts:', err);
-        setError('Failed to load posts');
-      } finally {
-        setLoading(false);
-      }
-    };
-    getPosts();
+    const storedPosts = sessionStorage.getItem('posts');
+    if (storedPosts) {
+      setPosts(JSON.parse(storedPosts));
+    } else {
+      // If there are no saved posts, we fetch them from API
+      const getPosts = async () => {
+        try {
+          setLoading(true);
+          const data = await fetchPosts();
+          setPosts(data);
+          sessionStorage.setItem('posts', JSON.stringify(data));
+        } catch (err) {
+          console.error('Error fetching posts:', err);
+          setError('Failed to load posts');
+        } finally {
+          setLoading(false);
+        }
+      };
+      getPosts();
+    }
   }, []);
 
   return (
@@ -51,7 +58,6 @@ export const PostsProvider: React.FC<PostsProviderProps> = ({ children }) => {
   );
 };
 
-// Custom hook for easy access
 export function usePosts() {
   return useContext(PostsContext);
 }
