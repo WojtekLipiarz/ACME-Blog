@@ -9,12 +9,13 @@ interface CardContainerProps {
 }
 
 export const CardContainer = styled.div<CardContainerProps>`
+  height: 433px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.3rem;
-  height: 300px;
 
   border-top-left-radius: ${({ theme }) => theme.radius.lg};
   border-bottom-right-radius: ${({ theme }) => theme.radius.lg};
@@ -54,7 +55,7 @@ interface CategoryTextProps {
 export const CategoryText = styled.span<CategoryTextProps>`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 0.25rem;
   font-weight: 600;
   font-style: italic;
   font-size: 0.875rem;
@@ -82,7 +83,7 @@ export const CategoryText = styled.span<CategoryTextProps>`
 export const PostCardTitle = styled.p`
   font-family: Playfair Display;
   font-weight: 900;
-  font-size: 1.5481rem;
+  font-size: 1.5rem;
   line-height: 2rem;
   letter-spacing: 4%;
   color: ${({ theme }) => theme.colors.accent3};

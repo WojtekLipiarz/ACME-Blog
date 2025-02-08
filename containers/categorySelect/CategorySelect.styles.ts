@@ -1,9 +1,19 @@
+// comment 1:
+// These values ​​can limit component reusability.
+// They currently do not affect code quality, but it may turn out that they will need to be set conditionally
+
 import styled from 'styled-components';
 import { SWIPER_BREAKPOINTS } from 'utils/constants';
 
 const swiperPaddingTop = 1.75;
 
 export const CategorySelectWrapper = styled.div`
+  /* Read comment 1 */
+  @media (max-width: ${SWIPER_BREAKPOINTS.FOUR_ITEMS}px) {
+    margin-left: -${({ theme }) => theme.layoutPadding.xs};
+    margin-right: -${({ theme }) => theme.layoutPadding.xs};
+  }
+
   .swiper {
     width: 100%;
 
@@ -51,9 +61,12 @@ export const ArrowWrapper = styled.div`
     border: none;
     cursor: pointer;
     font-size: 2rem;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     color: ${({ theme }) => theme.colors.grey600};
     margin-top: ${swiperPaddingTop}rem;
+
+    /* Read comment 1 */
+    width: ${({ theme }) => theme.layoutPadding.xs};
   }
 `;
 

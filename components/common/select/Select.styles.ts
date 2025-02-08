@@ -1,9 +1,14 @@
 import styled from 'styled-components';
+import { SWIPER_BREAKPOINTS } from 'utils/constants';
 
 export const SelectContainer = styled.div`
   label {
     color: ${({ theme }) => theme.colors.accent2};
-    margin-right: 2.75rem;
+    margin-right: 0.75rem;
+
+    @media (min-width: ${SWIPER_BREAKPOINTS.THREE_ITEMS}px) {
+      margin-right: 2.75rem;
+    }
   }
 `;
 

@@ -8,7 +8,6 @@ import { CATEGORIES, Category } from '@models/category';
 // common
 import { CardCategory } from '@components/common/cards/CardCategory';
 import { Icon } from '@components/common/icon/Icon';
-import { Title } from '@components/common/text/Title';
 // styles
 import {
   CategorySelectWrapper,
@@ -46,8 +45,6 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
 
   return (
     <CategorySelectWrapper>
-      <Title variant="h2" text="Kategorie" />
-
       <SliderControls>
         <ArrowWrapper>
           <button onClick={handlePrevious}>

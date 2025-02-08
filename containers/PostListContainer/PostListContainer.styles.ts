@@ -8,10 +8,11 @@ export const Container = styled.div`
 
 export const PostsWrapper = styled.div`
   display: grid;
-  gap: 16px;
+  gap: 3.5rem;
   grid-template-columns: 1fr;
 
   @media (min-width: ${SWIPER_BREAKPOINTS.TWO_ITEMS}px) {
+    gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
   }
 
