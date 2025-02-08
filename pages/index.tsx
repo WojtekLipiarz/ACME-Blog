@@ -25,6 +25,8 @@ function HomePageContent() {
   const { posts, loading, error } = usePosts();
   const { favoriteIds } = useFavorites();
 
+  console.log('posts', posts);
+
   // Use the custom hook to manage filtering, sorting, and pagination.
   const {
     currentPagePosts,

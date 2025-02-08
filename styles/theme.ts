@@ -27,10 +27,10 @@ export const lightTheme = {
     lg: '60px',
   },
 
-  maxWidth: '1632px',
-  padding: {
-    xs: '29px',
-    lg: '144px',
+  layoutPadding: {
+    xs: '2rem',
+    md: '4rem',
+    lg: '9rem',
   },
 };
 
@@ -63,9 +63,9 @@ export const darkTheme = {
     lg: '60px',
   },
 
-  maxWidth: '1632px',
-  padding: {
-    xs: '29px',
-    lg: '144px',
+  layoutPadding: {
+    xs: '2rem',
+    md: '4rem',
+    lg: '9rem',
   },
 };

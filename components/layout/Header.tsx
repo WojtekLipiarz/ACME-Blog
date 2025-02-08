@@ -26,7 +26,7 @@ export default function Header({ toggleDarkMode }: HeaderProps) {
       <button
         type="button"
         onClick={toggleDarkMode}
-        style={{ position: 'absolute', top: 16, right: 16 }}
+        style={{ display: 'none' }}
       >
         Toggle Dark Mode
       </button>

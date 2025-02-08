@@ -5,7 +5,6 @@ export const FavoriteContainer = styled.button`
   cursor: pointer;  
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1.5rem;
   background-color: transparent;
   border: 0;
@@ -14,5 +13,6 @@ export const FavoriteContainer = styled.button`
     color: ${({ theme }) => theme.colors.accent2};
     font-size: 1.125rem;
     font-weight: 700;
+    text-align: start;
   }
 `;

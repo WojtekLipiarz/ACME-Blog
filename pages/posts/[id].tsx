@@ -1,26 +1,33 @@
-// pages/posts/[id].tsx
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import React from 'react';
-import Link from 'next/link';
-import { Post } from '@models/post';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+// services
 import { fetchPosts, fetchPost } from '@services/api';
-import FavoriteToggle from '@components/common/favorite/FavoriteToggle';
+// models
+import { Post } from '@models/post';
+// components
 import SEO from '@components/common/SEO';
+import FavoriteToggle from '@components/common/favorite/FavoriteToggle';
+import { Icon } from '@components/common/icon/Icon';
+import { Title } from '@components/common/text/Title';
+// style
+import {
+  PostBackLink,
+  PostBody,
+  PostContainer,
+  PostEntryText,
+  PostHeader,
+  PostImage,
+  PostSection,
+  PostSectioTitle,
+} from './post.style';
 
 interface PostPageProps {
   post: Post;
 }
 
 const PostPage: NextPage<PostPageProps> = ({ post }) => {
-  // Use a consistent locale and options for date formatting.
-  const formattedDate = new Date(post.createdAt).toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
-
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '16px' }}>
+    <PostContainer>
       <SEO
         title={post.title}
         description={post.body.substring(0, 150)}
@@ -28,17 +35,45 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
         image={`https://yourdomain.com/posts/${post.id}/og-image.jpg`} // Adjust as needed
       />
 
-      <Link href="/">← Back to Blog</Link>
-      <h1>{post.title}</h1>
-      <p>
-        <strong>Category:</strong> {post.category}
-      </p>
-      <p>
-        <strong>Published on:</strong> {formattedDate}
-      </p>
-      <p>{post.body}</p>
-      <FavoriteToggle postId={post.id} />
-    </div>
+      <PostHeader>
+        <PostBackLink href="/">
+          <Icon iconName="arrow_left" color="black" size={32} />
+          <span>Blog Edukacyjny</span>
+        </PostBackLink>
+
+        <FavoriteToggle postId={post.id} />
+      </PostHeader>
+
+      <PostSection $withMargin={true}>
+        <Title variant="h1" text={post.title} />
+
+        {/* !!! TODO !!! */}
+        {/* The endpoint needs to be updated */}
+        <PostEntryText>
+          Cras commodo, massa nec tempor posuere, sapien risus porttitor risus,
+          vitae maximus dui felis sed mi. Maecenas rutrum malesuada urna, in
+          luctus metus fringilla ac. Cras commodo, massa nec tempor posuere,
+          sapien risus porttitor risus.
+        </PostEntryText>
+      </PostSection>
+
+      <PostSection>
+        {/* !!! TODO !!! */}
+        {/* The endpoint needs to be updated */}
+        <PostSectioTitle>Lorem ipsum</PostSectioTitle>
+
+        <PostBody>{post.body}</PostBody>
+
+        <PostImage
+          src="https://picsum.photos/id/1/1208/680"
+          alt="The Lorem Ipsum for photos."
+          layout="responsive"
+          width={1208}
+          height={680}
+          objectFit="contain"
+        />
+      </PostSection>
+    </PostContainer>
   );
 };
 
