@@ -24,4 +24,15 @@ export const TitleWrapper = styled.h1<TitleWrapperProps>`
         return '2rem';
     }
   }};
+  line-height: ${({ $size, $variant }) => {
+    if ($size) {
+      return 'unset';
+    }
+    switch ($variant) {
+      case 'h2':
+        return '2.75rem';
+      default:
+        return 'unset';
+    }
+  }};
 `;

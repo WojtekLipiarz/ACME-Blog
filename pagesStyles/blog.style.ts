@@ -49,22 +49,20 @@ export const Row1 = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-direction: column;
   margin-bottom: 3.8rem;
 
-  @media (min-width: ${SWIPER_BREAKPOINTS.TWO_ITEMS}px) {
+  @media (min-width: ${SWIPER_BREAKPOINTS.THREE_ITEMS}px) {
+    flex-direction: row;
     align-items: center;
     margin-bottom: 0;
   }
 `;
 
 export const Row2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-
-  @media (min-width: ${SWIPER_BREAKPOINTS.TWO_ITEMS}px) {
-    flex-direction: row;
-  }
+  flex: 1;
+  display: inline-flex;
+  gap: 1rem;
 `;
 
 export const FavoriteWrapper = styled.div`
@@ -77,5 +75,24 @@ export const CategoryTitle = styled.div`
   @media (min-width: ${SWIPER_BREAKPOINTS.TWO_ITEMS}px) {
     display: block;
     margin-bottom: 3.125rem;
+  }
+`;
+
+export const ShowOnMobileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (min-width: ${SWIPER_BREAKPOINTS.THREE_ITEMS}px) {
+    display: none;
+  }
+`;
+
+export const ShowOnDtWrapper = styled.div`
+  display: none;
+
+  @media (min-width: ${SWIPER_BREAKPOINTS.THREE_ITEMS}px) {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
   }
 `;

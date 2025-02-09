@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useCallback } from 'react';
 import dynamic from 'next/dynamic';
 // context
 import { PostsProvider, usePosts } from '@context/PostsContext';
@@ -26,6 +26,8 @@ import {
   Row2,
   Section1,
   Section2,
+  ShowOnDtWrapper,
+  ShowOnMobileWrapper,
 } from 'pagesStyles/blog.style';
 
 // dynamic import
@@ -34,14 +36,20 @@ const DynamicPostListContainer = dynamic(
     import('@containers/postListContainer/PostListContainer').then(
       (mod) => mod.PostListContainer
     ),
-  { loading: () => <div>Ładowanie listy wpisów...</div> }
+  {
+    loading: () => <div>Ładowanie listy wpisów...</div>,
+    ssr: false,
+  }
 );
 const DynamicCategorySelect = dynamic(
   () =>
     import('@containers/categorySelect/CategorySelect').then(
       (mod) => mod.CategorySelect
     ),
-  { loading: () => <div>Ładowanie listy wpisów...</div> }
+  {
+    loading: () => <div>Ładowanie listy wpisów...</div>,
+    ssr: false,
+  }
 );
 
 function HomePageContent() {
@@ -63,10 +71,20 @@ function HomePageContent() {
     goToPrevPage,
   } = useFilteredPosts({ posts, favoriteIds, postsPerPage: 12 });
 
-  const categoryDataText = useMemo(
-    () => (selectedCategory ? categoryMap[selectedCategory]?.text : null),
-    [selectedCategory]
-  );
+  const renderActiveCategory = useCallback(() => {
+    const categoryDataText = selectedCategory ? categoryMap[selectedCategory]?.text : null; // prettier-ignore
+    if (!categoryDataText) return null;
+    return (
+      <ButtonText
+        text={categoryDataText}
+        color="featured"
+        iconName="icon_close"
+        iconColor="black"
+        isActive={true}
+        onClick={() => setActiveCategory(null)}
+      />
+    );
+  }, [selectedCategory]);
 
   if (loading) {
     return <div>Loading posts...</div>;
@@ -105,29 +123,26 @@ function HomePageContent() {
             <Row2>
               <Title variant="h2" text="Wpisy" />
               <ErrorBoundary>
-                {categoryDataText && (
-                  <ButtonText
-                    text={categoryDataText}
-                    color="featured"
-                    iconName="icon_close"
-                    iconColor="black"
-                    isActive={true}
-                    onClick={() => setActiveCategory(null)}
-                  />
-                )}
+                <ShowOnDtWrapper>{renderActiveCategory()}</ShowOnDtWrapper>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <Select
+                  label="pokaż od:"
+                  options={[
+                    { id: 'newest', value: 'Najnowsze wpisy' },
+                    { id: 'oldest', value: 'Najstarsze wpisy' },
+                  ]}
+                  activeOption={sortOrder}
+                  onChange={(e: any) => setSortOrder(e)}
+                />
               </ErrorBoundary>
             </Row2>
 
             <ErrorBoundary>
-              <Select
-                label="pokaż od:"
-                options={[
-                  { id: 'newest', value: 'Najnowsze wpisy' },
-                  { id: 'oldest', value: 'Najstarsze wpisy' },
-                ]}
-                activeOption={sortOrder}
-                onChange={(e: any) => setSortOrder(e)}
-              />
+              <ShowOnMobileWrapper>
+                {renderActiveCategory()}
+              </ShowOnMobileWrapper>
             </ErrorBoundary>
           </Row1>
 
