@@ -31,6 +31,7 @@ function enrichPost(original: Post): Post {
  * Fetch all posts and enrich them.
  */
 export async function fetchPosts(): Promise<Post[]> {
+  // throw new Error('Error test!');
   const response = await api.get<Post[]>('/posts');
   const data = response.data;
   return data.map(enrichPost);
@@ -40,6 +41,7 @@ export async function fetchPosts(): Promise<Post[]> {
  * Fetch a single post by ID and enrich it.
  */
 export async function fetchPost(id: number): Promise<Post> {
+  // throw new Error('Error test!');
   const response = await api.get<Post>(`/posts/${id}`);
   return enrichPost(response.data);
 }

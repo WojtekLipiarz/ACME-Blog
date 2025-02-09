@@ -9,7 +9,7 @@ import useScrollRestoration from '@hooks/useScrollRestoration';
 // context
 import { FavoritesProvider } from '@context/FavoritesContext';
 // common
-import { ErrorBoundary } from '@components/common/ErrorBoundary';
+import { ErrorBoundary } from '@components/common/error/ErrorBoundary';
 import Header from '@components/layout/Header';
 
 function MyApp({ Component, pageProps }: AppProps) {

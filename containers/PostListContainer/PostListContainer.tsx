@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 // models
 import { Post } from '@models/post';
 // components
 import { Icon } from '@components/common/icon/Icon';
 import { CardPost } from '@components/common/cards/CardPost';
+import { ErrorBoundary } from '@components/common/error/ErrorBoundary';
 // styles
 import {
   Container,
@@ -57,7 +58,11 @@ export const PostListContainer: React.FC<PostListContainerProps> = ({
     <Container>
       <PostsWrapper>
         {currentPagePosts.map((post: Post) => (
-          <CardPost key={post.id} {...post} />
+          <Fragment key={post.id}>
+            <ErrorBoundary>
+              <CardPost {...post} />
+            </ErrorBoundary>
+          </Fragment>
         ))}
 
         <div ref={bottomRef} />

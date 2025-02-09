@@ -13,7 +13,7 @@ import { PostListContainer } from '@containers/postListContainer/PostListContain
 import { CategorySelect } from '@containers/categorySelect/CategorySelect';
 // components
 import SEO from '@components/common/SEO';
-import { ErrorBoundary } from '@components/common/ErrorBoundary';
+import { ErrorBoundary } from '@components/common/error/ErrorBoundary';
 import { Title } from '@components/common/text/Title';
 import { ButtonText } from '@components/common/button/ButtonText';
 import FavoriteFilter from '@components/common/favorite/FavoriteFilter';
@@ -28,6 +28,7 @@ import {
   Section1,
   Section2,
 } from './index.styles';
+import { ErrorFallback } from '@components/common/error/ErrorFallback';
 
 function HomePageContent() {
   const { posts, loading, error } = usePosts();
@@ -57,7 +58,7 @@ function HomePageContent() {
     return <div>Loading posts...</div>;
   }
   if (error) {
-    return <div>{error}</div>;
+    return <ErrorFallback error={error} />;
   }
   return (
     <>
@@ -73,59 +74,69 @@ function HomePageContent() {
           <Title variant="h1" text="Blog Edukacyjny" />
         </Section1>
 
-        <Section2>
-          <CategoryTitle>
-            <Title variant="h2" text="Kategorie" />
-          </CategoryTitle>
+        <ErrorBoundary>
+          <Section2>
+            <CategoryTitle>
+              <Title variant="h2" text="Kategorie" />
+            </CategoryTitle>
 
-          <CategorySelect
-            selectedCategory={selectedCategory}
-            onChange={setActiveCategory}
-          />
-        </Section2>
+            <CategorySelect
+              selectedCategory={selectedCategory}
+              onChange={setActiveCategory}
+            />
+          </Section2>
+        </ErrorBoundary>
 
         <Section1>
           <Row1>
             <Row2>
               <Title variant="h2" text="Wpisy" />
 
-              {categoryDataText && (
-                <ButtonText
-                  text={categoryDataText}
-                  color="featured"
-                  iconName="icon_close"
-                  iconColor="black"
-                  isActive={true}
-                  onClick={() => setActiveCategory(null)}
-                />
-              )}
+              <ErrorBoundary>
+                {categoryDataText && (
+                  <ButtonText
+                    text={categoryDataText}
+                    color="featured"
+                    iconName="icon_close"
+                    iconColor="black"
+                    isActive={true}
+                    onClick={() => setActiveCategory(null)}
+                  />
+                )}
+              </ErrorBoundary>
             </Row2>
 
-            <Select
-              label="pokaż od:"
-              options={[
-                { id: 'newest', value: 'Najnowsze wpisy' },
-                { id: 'oldest', value: 'Najstarsze wpisy' },
-              ]}
-              activeOption={sortOrder}
-              onChange={(e: any) => setSortOrder(e)}
-            />
+            <ErrorBoundary>
+              <Select
+                label="pokaż od:"
+                options={[
+                  { id: 'newest', value: 'Najnowsze wpisy' },
+                  { id: 'oldest', value: 'Najstarsze wpisy' },
+                ]}
+                activeOption={sortOrder}
+                onChange={(e: any) => setSortOrder(e)}
+              />
+            </ErrorBoundary>
           </Row1>
 
-          <FavoriteWrapper>
-            <FavoriteFilter
-              setShowFavorites={setShowFavorites}
-              showFavorites={showFavorites}
-            />
-          </FavoriteWrapper>
+          <ErrorBoundary>
+            <FavoriteWrapper>
+              <FavoriteFilter
+                setShowFavorites={setShowFavorites}
+                showFavorites={showFavorites}
+              />
+            </FavoriteWrapper>
+          </ErrorBoundary>
 
-          <PostListContainer
-            currentPagePosts={currentPagePosts}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            goToNextPage={goToNextPage}
-            goToPrevPage={goToPrevPage}
-          />
+          <ErrorBoundary>
+            <PostListContainer
+              currentPagePosts={currentPagePosts}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              goToNextPage={goToNextPage}
+              goToPrevPage={goToPrevPage}
+            />
+          </ErrorBoundary>
         </Section1>
       </Container>
     </>
