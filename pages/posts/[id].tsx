@@ -22,7 +22,7 @@ import {
   PostImage,
   PostSection,
   PostSectioTitle,
-} from './post.style';
+} from 'pagesStyles/post.style';
 
 interface PostPageProps {
   post?: Post;

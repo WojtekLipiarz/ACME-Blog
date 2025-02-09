@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
+import dynamic from 'next/dynamic';
 // context
 import { PostsProvider, usePosts } from '@context/PostsContext';
 import { useFavorites } from '@context/FavoritesContext';
@@ -8,11 +9,9 @@ import { useFavorites } from '@context/FavoritesContext';
 import { useFilteredPosts } from '@hooks/useFilteredPosts';
 // models
 import { categoryMap } from '@models/category';
-// containers
-import { PostListContainer } from '@containers/postListContainer/PostListContainer';
-import { CategorySelect } from '@containers/categorySelect/CategorySelect';
 // components
 import SEO from '@components/common/SEO';
+import { ErrorFallback } from '@components/common/error/ErrorFallback';
 import { ErrorBoundary } from '@components/common/error/ErrorBoundary';
 import { Title } from '@components/common/text/Title';
 import { ButtonText } from '@components/common/button/ButtonText';
@@ -27,14 +26,29 @@ import {
   Row2,
   Section1,
   Section2,
-} from './index.styles';
-import { ErrorFallback } from '@components/common/error/ErrorFallback';
+} from 'pagesStyles/blog.style';
+
+// dynamic import
+const DynamicPostListContainer = dynamic(
+  () =>
+    import('@containers/postListContainer/PostListContainer').then(
+      (mod) => mod.PostListContainer
+    ),
+  { loading: () => <div>Ładowanie listy wpisów...</div> }
+);
+const DynamicCategorySelect = dynamic(
+  () =>
+    import('@containers/categorySelect/CategorySelect').then(
+      (mod) => mod.CategorySelect
+    ),
+  { loading: () => <div>Ładowanie listy wpisów...</div> }
+);
 
 function HomePageContent() {
   const { posts, loading, error } = usePosts();
   const { favoriteIds } = useFavorites();
 
-  // Use the custom hook to manage filtering, sorting, and pagination.
+  // Użycie custom hooka do filtrowania, sortowania i paginacji.
   const {
     currentPagePosts,
     currentPage,
@@ -79,8 +93,7 @@ function HomePageContent() {
             <CategoryTitle>
               <Title variant="h2" text="Kategorie" />
             </CategoryTitle>
-
-            <CategorySelect
+            <DynamicCategorySelect
               selectedCategory={selectedCategory}
               onChange={setActiveCategory}
             />
@@ -91,7 +104,6 @@ function HomePageContent() {
           <Row1>
             <Row2>
               <Title variant="h2" text="Wpisy" />
-
               <ErrorBoundary>
                 {categoryDataText && (
                   <ButtonText
@@ -129,7 +141,7 @@ function HomePageContent() {
           </ErrorBoundary>
 
           <ErrorBoundary>
-            <PostListContainer
+            <DynamicPostListContainer
               currentPagePosts={currentPagePosts}
               currentPage={currentPage}
               totalPages={totalPages}
