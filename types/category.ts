@@ -7,6 +7,7 @@ export type Category =
 export type CategoryItem = {
   id: Category;
   text: string;
+  img: string;
   icon: string;
   bg: string;
   color: string;
@@ -23,6 +24,7 @@ export const CATEGORIES: CategoryItem[] = [
   {
     id: 'knowledge',
     text: 'Wiedza',
+    img: '/img/category_knowledge.jpeg',
     icon: 'icon_knowledge',
     bg: 'category1',
     color: 'white',
@@ -30,6 +32,7 @@ export const CATEGORIES: CategoryItem[] = [
   {
     id: 'inspirations',
     text: 'Inspiracje',
+    img: '/img/category_inspirations.png',
     icon: 'icon_inspirations',
     bg: 'category2',
     color: 'accent4',
@@ -37,6 +40,7 @@ export const CATEGORIES: CategoryItem[] = [
   {
     id: 'interpretations',
     text: 'Interpretacje',
+    img: '/img/category_interpretations.jpeg',
     icon: 'icon_interpretations',
     bg: 'category3',
     color: 'white',
@@ -44,6 +48,7 @@ export const CATEGORIES: CategoryItem[] = [
   {
     id: 'available',
     text: 'Dostępne',
+    img: '/img/category_available.jpeg',
     icon: 'icon_available',
     bg: 'category4',
     color: 'accent4',

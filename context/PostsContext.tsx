@@ -23,7 +23,6 @@ interface PostsProviderProps {
 }
 
 export const PostsProvider: React.FC<PostsProviderProps> = ({ children }) => {
-  // Inicjalizujemy stan jako pustą tablicę
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

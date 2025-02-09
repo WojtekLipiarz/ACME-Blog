@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 // models
 import { CategoryItem } from '@models/category';
 import { CardProps } from '@models/card';
 // styles
-import { CardContainer } from './Card.styles';
+import { CardCategoryContainer, CardCategoryContent } from './Card.styles';
 import { Icon } from '../icon/Icon';
 
 interface CardCategoryProps extends CardProps {
@@ -17,11 +18,20 @@ export const CardCategory: React.FC<CardCategoryProps> = ({
   data,
   isActive = false,
 }) => {
-  const { text, icon, color, bg } = data || {};
+  const { id, text, img, icon, color, bg } = data;
   return (
-    <CardContainer $isActive={isActive} $color={color} $bg={bg}>
-      <span>{text}</span>
-      <Icon iconName={icon} color={color} size={53} />
-    </CardContainer>
+    <CardCategoryContainer $isActive={isActive} $color={color} $bg={bg}>
+      <Image
+        src={img}
+        alt={`Grafika kategorii ${text}`}
+        width={500}
+        height={246}
+        priority
+      />
+      <CardCategoryContent>
+        <span>{text}</span>
+        <Icon iconName={icon} color={color} size={53} />
+      </CardCategoryContent>
+    </CardCategoryContainer>
   );
 };

@@ -56,7 +56,9 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({
           onSwiper={setSwiperRef}
           modules={[Pagination]}
           pagination={{ clickable: true }}
-          spaceBetween={16}
+          // To keep the same spacing for categories and posts the value is set to 4.
+          // Because the category cards have additional spacing for borderWidth
+          spaceBetween={4}
           slidesPerView={1}
           breakpoints={{
             [SWIPER_BREAKPOINTS.TWO_ITEMS]: { slidesPerView: 2 },
